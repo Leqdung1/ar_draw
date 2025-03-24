@@ -1,7 +1,14 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:ragnarok_flutter/ads/ragnarok_inters_ads.dart';
+
+Widget cameraScreenBuilder(BuildContext context, [dynamic data]) {
+  return const CameraScreen();
+}
 
 class CameraScreen extends StatefulWidget {
+  const CameraScreen({super.key});
+
   @override
   _CameraScreenState createState() => _CameraScreenState();
 }
@@ -47,121 +54,126 @@ class _CameraScreenState extends State<CameraScreen> {
     if (_controller == null || !_controller!.value.isInitialized) {
       return Center(child: CircularProgressIndicator());
     }
+    return PopScope(
+      onPopInvokedWithResult: (didPop, result) {
+        RagnarokIntersAds.show();
+      },
+      child: Scaffold(
+        appBar: AppBar(title: const Text('Camera')),
+        body: Stack(
+          children: [
+            // Camera Preview
+            Positioned.fill(child: CameraPreview(_controller!)),
 
-    return Scaffold(
-      body: Stack(
-        children: [
-          // Camera Preview
-          Positioned.fill(child: CameraPreview(_controller!)),
-
-          Positioned(
-            top: imagePosition.dy,
-            left: imagePosition.dx,
-            child: GestureDetector(
-              onPanUpdate: (details) {
-                if (!isLocked) {
-                  setState(() {
-                    imagePosition = imagePosition + details.delta;
-                  });
-                }
-              },
-              child: ValueListenableBuilder<double>(
-                valueListenable: opacity,
-                builder: (context, value, child) {
-                  return Center(
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        border: Border.all(color: Colors.blue, width: 4),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Opacity(
-                        opacity: value,
-                        child: ClipRRect(
+            Positioned(
+              top: imagePosition.dy,
+              left: imagePosition.dx,
+              child: GestureDetector(
+                onPanUpdate: (details) {
+                  if (!isLocked) {
+                    setState(() {
+                      imagePosition = imagePosition + details.delta;
+                    });
+                  }
+                },
+                child: ValueListenableBuilder<double>(
+                  valueListenable: opacity,
+                  builder: (context, value, child) {
+                    return Center(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          border: Border.all(color: Colors.blue, width: 4),
                           borderRadius: BorderRadius.circular(12),
-                          child: Image.network(
-                            'https://www.biowars.com/wp-content/uploads/2023/03/wolf-drawing-final.jpg.webp',
-                            width: 200,
-                            height: 200,
-                            fit: BoxFit.cover,
+                        ),
+                        child: Opacity(
+                          opacity: value,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Image.network(
+                              'https://www.biowars.com/wp-content/uploads/2023/03/wolf-drawing-final.jpg.webp',
+                              width: 200,
+                              height: 200,
+                              fit: BoxFit.cover,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  );
-                },
+                    );
+                  },
+                ),
               ),
             ),
-          ),
 
-          if (isOpacity)
+            if (isOpacity)
+              Positioned(
+                bottom: 150,
+                left: 20,
+                right: 20,
+                child: ValueListenableBuilder<double>(
+                  valueListenable: opacity,
+                  builder: (context, value, child) {
+                    return Slider(
+                      value: value,
+                      min: 0,
+                      max: 1,
+                      onChanged: (value) {
+                        opacity.value = value;
+                      },
+                    );
+                  },
+                ),
+              ),
+
             Positioned(
-              bottom: 150,
-              left: 20,
-              right: 20,
-              child: ValueListenableBuilder<double>(
-                valueListenable: opacity,
-                builder: (context, value, child) {
-                  return Slider(
-                    value: value,
-                    min: 0,
-                    max: 1,
-                    onChanged: (value) {
-                      opacity.value = value;
-                    },
-                  );
-                },
+              bottom: 0,
+              child: Container(
+                width: MediaQuery.of(context).size.width,
+                height: 100,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          isOpacity = !isOpacity;
+                        });
+                      },
+                      icon: Icon(
+                        Icons.opacity,
+                        size: 50,
+                        color: isOpacity ? Colors.red : Colors.grey,
+                      ),
+                    ),
+                    SizedBox(width: 50),
+                    IconButton(
+                      onPressed: () {
+                        setState(() {
+                          isLocked = !isLocked;
+                        });
+                        if (isLocked) {
+                          imagePosition = Offset(
+                            imagePosition.dx,
+                            imagePosition.dy,
+                          );
+                        }
+                      },
+                      icon: Icon(
+                        isLocked ? Icons.lock : Icons.lock_open,
+                        size: 50,
+                        color: isLocked ? Colors.red : Colors.grey,
+                      ),
+                    ),
+                  ],
+                ),
               ),
             ),
-
-          Positioned(
-            bottom: 0,
-            child: Container(
-              width: MediaQuery.of(context).size.width,
-              height: 100,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      setState(() {
-                        isOpacity = !isOpacity;
-                      });
-                    },
-                    icon: Icon(
-                      Icons.opacity,
-                      size: 50,
-                      color: isOpacity ? Colors.red : Colors.grey,
-                    ),
-                  ),
-                  SizedBox(width: 50),
-                  IconButton(
-                    onPressed: () {
-                      setState(() {
-                        isLocked = !isLocked;
-                      });
-                      if (isLocked) {
-                        imagePosition = Offset(
-                          imagePosition.dx,
-                          imagePosition.dy,
-                        );
-                      }
-                    },
-                    icon: Icon(
-                      isLocked ? Icons.lock : Icons.lock_open,
-                      size: 50,
-                      color: isLocked ? Colors.red : Colors.grey,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

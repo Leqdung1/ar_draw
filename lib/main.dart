@@ -1,22 +1,31 @@
 import 'package:flutter/material.dart';
-import 'package:test_ar/camera.dart';
+import 'package:ragnarok_flutter/ads/ragnarok_inters_ads.dart';
+import 'package:ragnarok_flutter/ads/ragnarok_open_ads.dart';
+import 'package:ragnarok_flutter/ragnarok_app/ragnarok_app.dart';
+import 'package:ragnarok_flutter/ragnarok_flutter.dart';
+import 'package:ragnarok_flutter/remote_config/remote_services.dart';
+import 'package:test_ar/router.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await RagnarokFlutter.initialize();
+  RemoteService.initialize().then((value) {
+    RagnarokIntersAds.load();
+    RagnarokOpenAds.load();
+  });
+
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      ),
-      home:  CameraScreen(),
+    return RagnarokApp(
+      initAppPageRoute: AppPageRouteExt.home(),
+      debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.light,
     );
   }
 }
