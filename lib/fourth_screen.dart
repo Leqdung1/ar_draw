@@ -21,7 +21,7 @@ class _FourthScreenState extends State<FourthScreen> {
     isBottom: true,
     screen: 'Fourth',
     onStatusChanged: (status) {
-      print(status);
+      print('status: $status');
     },
   );
   @override
@@ -29,7 +29,6 @@ class _FourthScreenState extends State<FourthScreen> {
     super.initState();
     RagnarokOpenAds.show();
     bannerAdsObject.load();
-    NativeAds.largeNativeAds.load();
   }
 
   @override
@@ -43,9 +42,11 @@ class _FourthScreenState extends State<FourthScreen> {
         body: Column(
           children: [
             Text('Fourth Screen'),
-            NativeAdsWidget(nativeAd: NativeAds.largeNativeAds),
+            Expanded(
+              child: NativeAdsWidget(nativeAd: NativeAds.largeNativeAds),
+            ),
             const Spacer(),
-            SafeArea(child: bannerAdsObject.build(context)),
+            bannerAdsObject.build(context),
           ],
         ),
       ),

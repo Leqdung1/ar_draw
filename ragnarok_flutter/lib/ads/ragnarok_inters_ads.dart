@@ -1,6 +1,4 @@
 import 'dart:io';
-
-import 'package:flutter/foundation.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:ragnarok_flutter/ads/ads_service.dart';
 import 'package:ragnarok_flutter/ads/ads_unit_id_const.dart';

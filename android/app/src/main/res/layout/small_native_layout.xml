@@ -28,7 +28,6 @@
              >
              <TextView
                  android:id="@+id/small_native_layout_header_id"
-                 android:paddingHorizontal="8dp"
                  android:paddingVertical="4dp"
                  android:layout_width="match_parent"
                  android:layout_height="wrap_content"
@@ -44,6 +43,7 @@
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
                      android:text="AD"
+                     android:textColor="@color/gnt_white"
                      android:background="@color/gnt_blue"
                      android:layout_marginEnd="4dp"
                      />
@@ -61,7 +61,9 @@
                  android:id="@+id/small_native_layout_cta_id"
                  android:layout_width="wrap_content"
                  android:textColor="@color/gnt_white"
-                 android:layout_height="wrap_content"/>
+                 android:background="@color/gnt_blue"
+                 android:layout_height="wrap_content"
+                 android:padding="8dp"/>
          </LinearLayout>
 
     </LinearLayout>

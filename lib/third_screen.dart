@@ -32,7 +32,7 @@ class _ThirdScreenState extends State<ThirdScreen> {
     super.initState();
     RagnarokOpenAds.show();
     bannerAdsObject.load();
-    NativeAds.largeNativeAds.load();
+    NativeAds.smallNativeAds.load();
   }
 
   @override
@@ -48,7 +48,7 @@ class _ThirdScreenState extends State<ThirdScreen> {
             AppBar(title: const Text('Third Screen')),
             Text('hello'),
             Container(height: 100, color: Colors.red),
-            NativeAdsWidget(nativeAd: NativeAds.largeNativeAds),
+            NativeAdsWidget(nativeAd: NativeAds.smallNativeAds),
           ],
         ),
       ),

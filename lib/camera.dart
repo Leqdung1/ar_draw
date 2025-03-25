@@ -66,7 +66,6 @@ class _CameraScreenState extends State<CameraScreen> {
           children: [
             // Camera Preview
             Positioned.fill(child: CameraPreview(_controller!)),
-
             Positioned(
               top: imagePosition.dy,
               left: imagePosition.dx,
@@ -106,7 +105,6 @@ class _CameraScreenState extends State<CameraScreen> {
                 ),
               ),
             ),
-
             if (isOpacity)
               Positioned(
                 bottom: 150,

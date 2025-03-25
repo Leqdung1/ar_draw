@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ragnarok_flutter/ads/ragnarok_banner_ads_object.dart';
-import 'package:ragnarok_flutter/ads/ragnarok_open_ads.dart';
 import 'package:test_ar/camera.dart';
 import 'package:test_ar/fourth_screen.dart';
 import 'package:test_ar/third_screen.dart';
@@ -21,7 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
     isBottom: false,
     screen: 'Home',
     onStatusChanged: (status) {
-      print(status);
+      print('status: $status');
     },
   );
 

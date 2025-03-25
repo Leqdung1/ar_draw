@@ -15,7 +15,7 @@ import 'ads_service.dart';
 import 'ads_unit_id_const.dart';
 
 class RagnarokOpenAds {
-  static int _lastTimeShowOpenAds = 0;
+  static int _lastTimeShowOpenAds = 0;  
   static int get _countToShowAppOpenAds =>
       RagnarokLocalStorage.getInt(
           RagnarokLocalStorageKey.countToShowAppOpenAd) ??
@@ -52,14 +52,15 @@ class RagnarokOpenAds {
 
   static OpenAdsEventBus openAdsEventBus = OpenAdsEventBus();
 
-  static Future<void> load() async {
+  // Tải ads
+  static Future<void> load() async { 
     try {
       if (_appOpenAd != null) {
         appLog.log('App open ads already loaded');
         return;
       }
-      appLog.log('Loading app open ads');
-      openAdsEventBus.fire('loading');
+      appLog.log('Loading app open ads'); 
+      openAdsEventBus.fire('loading'); 
       await AppOpenAd.load(
         adUnitId: openAdUnitId,
         request: const AdRequest(),
