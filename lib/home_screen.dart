@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ragnarok_flutter/ads/ragnarok_banner_ads_object.dart';
+import 'package:ragnarok_flutter/ads/ragnarok_open_ads.dart';
 import 'package:test_ar/camera.dart';
+import 'package:test_ar/fourth_screen.dart';
 import 'package:test_ar/third_screen.dart';
 
 Widget homeScreenBuilder(BuildContext context, [dynamic data]) {
@@ -45,6 +47,15 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             },
             child: const Icon(Icons.camera),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => FourthScreen()),
+              );
+            },
+            child: const Icon(Icons.arrow_forward_ios),
           ),
         ],
       ),

@@ -1,6 +1,7 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:ragnarok_flutter/ads/ragnarok_inters_ads.dart';
+import 'package:ragnarok_flutter/ads/ragnarok_open_ads.dart';
 
 Widget cameraScreenBuilder(BuildContext context, [dynamic data]) {
   return const CameraScreen();
@@ -24,6 +25,7 @@ class _CameraScreenState extends State<CameraScreen> {
   @override
   void initState() {
     super.initState();
+    RagnarokOpenAds.show();
     _initializeCamera();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       imagePosition = Offset(

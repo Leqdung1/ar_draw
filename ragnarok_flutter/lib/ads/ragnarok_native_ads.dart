@@ -82,6 +82,7 @@ class RagnarokNativeAds {
           onAdLoaded: (Ad ad) {
             _nativeAd = ad as NativeAd;
             status.value = NativeAdStatus.loaded;
+            appLog.log('NativeAd loaded: ${_nativeAd?.responseInfo}');
           },
           onAdFailedToLoad: (Ad ad, LoadAdError error) {
             ad.dispose();
