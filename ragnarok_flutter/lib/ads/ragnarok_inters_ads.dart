@@ -12,48 +12,50 @@ import 'package:ragnarok_flutter/top_level_variable.dart';
 import '../remote_config/remote_key_const.dart';
 
 class RagnarokIntersAds {
-  static int _lastTimeShowIntersAd = 0;
+  static int _lastTimeShowIntersAd = 0;  // thời gian lần cuối show quảng cáo 
 
   static int get _countToShowIntersAd =>
       RagnarokLocalStorage.getInt(
           RagnarokLocalStorageKey.countToShowInterstitialAd) ??
       0;
 
-  static String get _intersAdUnitIdAndroid => isDebugMode
-      ? AdsUnitIdConst.interstitialAdUnitIdAndroidTest
-      : RemoteService.getString(RemoteKeyConst.interstitialAdUnitIdAndroid);
+  static String get _intersAdUnitIdAndroid => isDebugMode 
+      ? AdsUnitIdConst.interstitialAdUnitIdAndroidTest // Nếu chạy ở debugMode thì dùng id test 
+      : RemoteService.getString(RemoteKeyConst.interstitialAdUnitIdAndroid);  
 
   static String get _intersAdUnitIdIOS => isDebugMode
-      ? AdsUnitIdConst.interstitialAdUnitIdIOSTest
+      ? AdsUnitIdConst.interstitialAdUnitIdIOSTest // Nếu chạy ở debugMode thì dùng id test 
       : RemoteService.getString(RemoteKeyConst.interstitialAdUnitIdIOS);
 
-  static String get intersAdUnitId =>
-      Platform.isAndroid ? _intersAdUnitIdAndroid : _intersAdUnitIdIOS;
+  static String get intersAdUnitId => // Lấy id của ads theo nền tảng
+      Platform.isAndroid ? _intersAdUnitIdAndroid : _intersAdUnitIdIOS;  
 
-  static InterstitialAd? _interstitialAd;
+  static InterstitialAd? _interstitialAd;  
 
-  static bool get _canShowAds =>
+  static bool get _canShowAds => // check nếu người dùng đã mua premium và đã show ads thì ko hiển thị ads
       !AdsService.isPremium.value && !AdsService.isShowingAds;
 
+  // Load Ads
   static void load() async {
     try {
-      if (Platform.isIOS) {
+      if (Platform.isIOS) {  // Chỉ hiện thị ở Android nếu là IOS thì thoát ngay lập tức
         return;
       }
-      if (_interstitialAd != null) {
-        return;
+      if (_interstitialAd != null) {  // Nếu đã hiện quảng cáo thì ko hiện nữa 
+        return; 
       }
-      await InterstitialAd.load(
-        adUnitId: intersAdUnitId,
-        request: AdRequest(),
+      // A full-screen interstitial ad for the Google Mobile Ads Plugin.
+      await InterstitialAd.load(  // Tải quảng cáo
+        adUnitId: intersAdUnitId, // Lấy id quảng cáo
+        request: AdRequest(),  // Yêu cầu quảng cáo
         adLoadCallback: InterstitialAdLoadCallback(
-          onAdLoaded: (InterstitialAd ad) {
+          onAdLoaded: (InterstitialAd ad) {  // Tải quảng cáo thành công
             appLog.log('InterstitialAd loaded');
             _interstitialAd = ad;
-            _interstitialAd!.setImmersiveMode(true);
+            _interstitialAd!.setImmersiveMode(true); // Hiển thị ads toàn màn hình (che cả thanh status bar) chỉ hiện ở android
           },
-          onAdFailedToLoad: (LoadAdError error) {
-            if (AdsService.logConsole) {
+          onAdFailedToLoad: (LoadAdError error) {  // Tải quảng cáo thất bại
+            if (AdsService.logConsole) { 
               print('InterstitialAd failed to load: $error');
             } else {
               appLog.logError('InterstitialAd failed to load: $error');
@@ -72,7 +74,9 @@ class RagnarokIntersAds {
     }
   }
 
-  static void show(
+
+  // Show quảng cáo
+  static void show( 
       {bool Function()? condition, String? screen, bool autoLoad = true}) {
     void _load() {
       if (Platform.isIOS) {
@@ -83,21 +87,21 @@ class RagnarokIntersAds {
       }
     }
 
-    if (condition != null && !condition()) return;
-    if (!_canShowAds) return;
+    if (condition != null && !condition()) return; // điều kiện truyền từ ngoài vào 
+    if (!_canShowAds) return; // nếu đã mua premium or đã show ads thì ko show nữa 
     RagnarokLocalStorage.setInt(
-        RagnarokLocalStorageKey.countToShowInterstitialAd,
+        RagnarokLocalStorageKey.countToShowInterstitialAd, // đếm số lần show ads
         _countToShowIntersAd + 1);
     if (_countToShowIntersAd <
         RemoteService.getInt(RemoteKeyConst.sessionNumberToShowIntersAd)) {
-      return;
+      return; 
     }
-    if (DateTime.now().millisecondsSinceEpoch - _lastTimeShowIntersAd <
+    if (DateTime.now().millisecondsSinceEpoch - _lastTimeShowIntersAd <      // Check thời gian đủ lâu để show quảng cáo 
         RemoteService.getInt(RemoteKeyConst.interstitialShowAdInterval) *
             1000) {
       return;
     }
-    if (_interstitialAd == null) {
+    if (_interstitialAd == null) { // Không có quảng cáo
       _load();
       return;
     }
@@ -161,6 +165,6 @@ class RagnarokIntersAds {
         AdsService.needToShowAds = false;
       },
     );
-    _interstitialAd!.show();
+    _interstitialAd!.show(); // show ads
   }
 }

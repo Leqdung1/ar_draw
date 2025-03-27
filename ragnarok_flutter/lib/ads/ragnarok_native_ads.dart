@@ -34,7 +34,7 @@ class RagnarokNativeAds {
     this.remoteConfigKey,
   });
 
-  NativeAd? _nativeAd = null;
+  NativeAd? _nativeAd = null; 
 
   ValueNotifier<NativeAdStatus> status = ValueNotifier(NativeAdStatus.failed);
 
@@ -62,7 +62,7 @@ class RagnarokNativeAds {
       if (status.value == NativeAdStatus.loading) {
         return;
       }
-      if (_nativeAd != null && status.value == NativeAdStatus.loaded) {
+      if (_nativeAd != null && status.value == NativeAdStatus.loaded) { // điều kiện để ko load tiếp nếu đã có ad 
         return;
       }
       if (!AdsService.isInitialized) {

@@ -52,7 +52,7 @@ class RagnarokBannerAdsObject {
     this.condition,
     required this.onStatusChanged,
   }) {
-    assert(adSize != AdSize.fluid || (height != null && width != null));
+    assert(adSize != AdSize.fluid || (height != null && width != null)); // Nếu ad size là fluid thì cần có height và width
     status.addListener(() {
       onStatusChanged(status.value);
     });
@@ -92,15 +92,15 @@ class RagnarokBannerAdsObject {
       BannerAd ad = BannerAd(
         adUnitId: bannerAdUnitId,
         size: adSize,
-        request: AdRequest(
+        request: const AdRequest(
           httpTimeoutMillis: 15000,
         ),
         listener: BannerAdListener(
-          onAdLoaded: (Ad ad) {
+          onAdLoaded: (Ad ad) {  // load ad thành công
             _bannerAd = ad as BannerAd;
             status.value = BannerAdsStatus.loaded;
           },
-          onAdFailedToLoad: (Ad ad, LoadAdError error) {
+          onAdFailedToLoad: (Ad ad, LoadAdError error) { 
             ad.dispose();
             _bannerAd = null;
             status.value = BannerAdsStatus.failed;
@@ -227,7 +227,7 @@ class RagnarokBannerAdsObject {
                 ),
               );
             });
-      },
+      }, 
     );
   }
 }

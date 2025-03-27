@@ -15,15 +15,15 @@ import 'ads_service.dart';
 import 'ads_unit_id_const.dart';
 
 class RagnarokOpenAds {
-  static int _lastTimeShowOpenAds = 0;  
-  static int get _countToShowAppOpenAds =>
+  static int _lastTimeShowOpenAds = 0;   // Lần cuối show ads
+  static int get _countToShowAppOpenAds => // Số lần show ads
       RagnarokLocalStorage.getInt(
           RagnarokLocalStorageKey.countToShowAppOpenAd) ??
       0;
 
-  static DateTime? _appOpenLoadTime;
+  static DateTime? _appOpenLoadTime; 
 
-  static String get _openAdUnitIdAndroid => isDebugMode
+  static String get _openAdUnitIdAndroid => isDebugMode 
       ? AdsUnitIdConst.appOpenAdUnitIdAndroidTest
       : RemoteService.getString(RemoteKeyConst.appOpenAdUnitIdAndroid);
 
@@ -31,21 +31,21 @@ class RagnarokOpenAds {
       ? AdsUnitIdConst.appOpenAdUnitIdIOSTest
       : RemoteService.getString(RemoteKeyConst.appOpenAdUnitIdIOS);
 
-  static String get openAdUnitId =>
+  static String get openAdUnitId =>  // id của open ads
       Platform.isAndroid ? _openAdUnitIdAndroid : _openAdUnitIdIOS;
 
-  static bool get _canShowAds =>
-      !AdsService.isPremium.value &&
+  static bool get _canShowAds =>    // check điều kiện để show ads
+      !AdsService.isPremium.value &&  
       !AdsService.isShowingAds &&
       AdsService.needToShowAds &&
       AppLifecycleReactor.appState == AppState.foreground;
 
-  static bool get adAvailable =>
+  static bool get adAvailable => 
       _appOpenAd != null &&
       _appOpenLoadTime != null &&
       DateTime.now().difference(_appOpenLoadTime!).inMinutes < 4 * 60;
 
-  static AppOpenAd? _appOpenAd;
+  static AppOpenAd? _appOpenAd;  /// A full-screen app open ad for the Google Mobile Ads Plugin.
 
   // sử dụng để kiểm tra xem đã show quảng cáo app open ở lần đầu vào app hay chưa
   static bool openAdShowedSplash = false;
@@ -55,34 +55,34 @@ class RagnarokOpenAds {
   // Tải ads
   static Future<void> load() async { 
     try {
-      if (_appOpenAd != null) {
-        appLog.log('App open ads already loaded');
+      if (_appOpenAd != null) { // ad đã tải trc đó nên ko cần tải và thoát hàm 
+        appLog.log('App open ads already loaded'); 
         return;
       }
       appLog.log('Loading app open ads'); 
-      openAdsEventBus.fire('loading'); 
-      await AppOpenAd.load(
+      openAdsEventBus.fire('loading'); // phát trạng thái để toàn app biết đang load ad
+      await AppOpenAd.load(  // open ad load
         adUnitId: openAdUnitId,
         request: const AdRequest(),
         adLoadCallback: AppOpenAdLoadCallback(
-          onAdLoaded: (AppOpenAd ad) {
+          onAdLoaded: (AppOpenAd ad) { // load ad thành công
             appLog.log('App open ads loaded');
-            _appOpenLoadTime = DateTime.now();
-            _appOpenAd = ad;
+            _appOpenLoadTime = DateTime.now(); // gán tgian tải quảng cáo bằng tgian hiện tại
+            _appOpenAd = ad;  
             // _appOpenAd!.setImmersiveMode(true);
             openAdsEventBus.fire('loaded_splash');
             if (openAdShowedSplash != true) {
-              openAdsEventBus.fire('loaded');
+              openAdsEventBus.fire('loaded');  // thông báo cho toàn app biết đang load ad
             }
           },
-          onAdFailedToLoad: (LoadAdError error) {
+          onAdFailedToLoad: (LoadAdError error) { // Load ads failed
             openAdsEventBus.fire('failed');
             if (AdsService.logConsole) {
               print('AppOpenAd failed to load: $error');
             } else {
               appLog.logError('AppOpenAd failed to load: $error');
             }
-            AdsService.removeOverlayEntry();
+            AdsService.removeOverlayEntry();   
             _appOpenAd = null;
             openAdShowedSplash = true;
           },
@@ -97,8 +97,11 @@ class RagnarokOpenAds {
     }
   }
 
+
+  // show ad
   static void show({bool fromSplash = false, bool Function()? condition}) {
     try {
+      // check các điều kiện để ko show ads
       if (condition != null && !condition()) return;
       if (!_canShowAds) return;
       appLog.log(
@@ -120,6 +123,8 @@ class RagnarokOpenAds {
       try {
         AdsService.showOverlayEntry();
       } catch (e) {}
+
+      // show ad
       _appOpenAd!.fullScreenContentCallback = FullScreenContentCallback(
         onAdDismissedFullScreenContent: (ad) {
           try {
@@ -140,7 +145,7 @@ class RagnarokOpenAds {
             appLog.logError(e, stackTrace: s);
           }
         },
-        onAdWillDismissFullScreenContent: (ad) {
+        onAdWillDismissFullScreenContent: (ad) { // for only ios
           openAdsEventBus.fire('will_dismiss');
           try {
             AdsService.removeOverlayEntry();

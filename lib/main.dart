@@ -15,9 +15,10 @@ void main() async {
       RagnarokIntersAds.load();
       RagnarokOpenAds.load();
       NativeAds.largeNativeAds.load();
+      NativeAds.smallNativeAds.load();
+      NativeAds.smallNativeAds1.load();
     },
   );
-
   runApp(const MyApp());
 }
 
