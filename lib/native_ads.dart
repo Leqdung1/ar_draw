@@ -6,6 +6,12 @@ class NativeAds {
   static const String smallNativeAd = 'smallNativeAd';
   static const String largeNativeAd = 'largeNativeAd';
 
+  static void load() {
+    smallNativeAds.load();
+    smallNativeAds1.load();
+    largeNativeAds.load();
+  }
+
   static RagnarokNativeAds smallNativeAds = RagnarokNativeAds(
     factoryId: smallNativeAd,
     screen: 'Fourth',

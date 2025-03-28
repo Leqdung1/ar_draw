@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:ragnarok_flutter/ads/ragnarok_banner_ads_object.dart';
 import 'package:test_ar/camera.dart';
 import 'package:test_ar/fourth_screen.dart';
+import 'package:test_ar/notifi_screen.dart';
+import 'package:test_ar/noti_scheduling.dart';
 import 'package:test_ar/third_screen.dart';
 
 Widget homeScreenBuilder(BuildContext context, [dynamic data]) {
@@ -28,6 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     bannerAdsObject.load();
+
   }
 
   @override
@@ -55,6 +58,24 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             },
             child: const Icon(Icons.arrow_forward_ios),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => NotifiScreen()),
+              );
+            },
+            child: const Icon(Icons.notification_add, color: Colors.red),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => TestNoti()),
+              );
+            },
+            child: const Icon(Icons.notifications, color: Colors.green),
           ),
         ],
       ),
