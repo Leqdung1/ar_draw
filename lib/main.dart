@@ -1,17 +1,30 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:ragnarok_flutter/ads/ads_service.dart';
 import 'package:ragnarok_flutter/ads/ragnarok_inters_ads.dart';
 import 'package:ragnarok_flutter/ads/ragnarok_open_ads.dart';
 import 'package:ragnarok_flutter/ragnarok_app/ragnarok_app.dart';
 import 'package:ragnarok_flutter/ragnarok_flutter.dart';
+import 'package:test_ar/background_service.dart';
 import 'package:test_ar/local_notification.dart';
 import 'package:test_ar/native_ads.dart';
 import 'package:test_ar/router.dart';
+
+// Lắng nghe các mesage khi ở trạng thái background
+@pragma('vm:entry-point')
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  print('Handling a background message ${message.messageId}');
+}
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await RagnarokFlutter.initialize();
   await LocalNotification.init();
+  await Firebase.initializeApp();
+  await initializeService();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   AdsService.initialize(
     loadAds: () {
       RagnarokIntersAds.load();

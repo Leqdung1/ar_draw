@@ -41,6 +41,9 @@ class LocalNotification {
       DateTime.tuesday,
       DateTime.thursday,
     ]);
+    await showNotificationOnshotFireBase();
+    await showNotificationOnshot();
+    await showNotificationOnshot1();
   }
 
   static Future<void> _configureLocalTimeZone() async {
@@ -77,7 +80,7 @@ class LocalNotification {
       final time = now.add(const Duration(seconds: 10));
       await flutterLocalNotificationsPlugin.zonedSchedule(
         888,
-        'Test Scheduled Notification',
+        'Test Scheduled Notification',     
         '123456',
         time,
         const NotificationDetails(
@@ -150,6 +153,34 @@ class LocalNotification {
     );
   }
 
+  static Future<void> showNotificationOnshotFireBase() async {
+    try {
+      await requestPermission();
+      const androidPlatformChannelSpecifics = AndroidNotificationDetails(
+        'your_channel_id',
+        'your_channel_name',
+        channelDescription: 'your_channel_description',
+        importance: Importance.high,
+        priority: Priority.high,
+        ticker: 'ticker',
+      );
+
+      const NotificationDetails platformChannelSpecifics = NotificationDetails(
+        android: androidPlatformChannelSpecifics,
+      );
+
+      await flutterLocalNotificationsPlugin.show(
+        745,
+        'testttttttttttt',
+        '4234234rwsfdff',
+        platformChannelSpecifics,
+        payload: '12345231232',
+      );
+    } catch (e) {
+      print(e);
+    }
+  }
+
   static Future<void> showNotificationScheduleWeek(final List<int> days) async {
     try {
       final permission = await requestPermission();
@@ -166,14 +197,6 @@ class LocalNotification {
       }
 
       final now = tz.TZDateTime.now(tz.local);
-      final time = tz.TZDateTime(
-        tz.local,
-        now.year,
-        now.month,
-        now.day,
-        now.hour,
-        now.minute,
-      );
 
       for (final int day in days) {
         tz.TZDateTime time = now;

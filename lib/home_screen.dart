@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ragnarok_flutter/ads/ragnarok_banner_ads_object.dart';
 import 'package:test_ar/camera.dart';
+import 'package:test_ar/firebase_screen.dart';
 import 'package:test_ar/fourth_screen.dart';
 import 'package:test_ar/notifi_screen.dart';
 import 'package:test_ar/noti_scheduling.dart';
@@ -30,7 +31,6 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     bannerAdsObject.load();
-
   }
 
   @override
@@ -76,6 +76,15 @@ class _HomeScreenState extends State<HomeScreen> {
               );
             },
             child: const Icon(Icons.notifications, color: Colors.green),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => FirebaseScreen()),
+              );
+            },
+            child: const Icon(Icons.fire_truck, color: Colors.orange),
           ),
         ],
       ),
