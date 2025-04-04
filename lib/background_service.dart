@@ -20,25 +20,14 @@ Future<void> initializeService() async {
       onStart: onStart,
       isForegroundMode: false,
       autoStartOnBoot: true,
+      notificationChannelId: notificationChannelId,
+      initialNotificationTitle: 'AWESOME SERVICE',
+      initialNotificationContent: 'Initializing',
+      foregroundServiceNotificationId: notificationId,
     ),
   );
   service.startService();
 }
-
-// @pragma('vm:entry-point')
-// void onStart(ServiceInstance service) {
-//   if (service is AndroidServiceInstance) {
-//     service.setForegroundNotificationInfo(
-//       title: "Background Service",
-//       content: "Đang chạy...",
-//     );
-//   }
-
-//   Timer.periodic(Duration(seconds: 2), (timer) {
-//     final time = DateTime.now();
-//     appLog.log("Service chạy: $time");
-//   });
-// }
 
 @pragma('vm:entry-point')
 Future<void> onStart(ServiceInstance service) async {
@@ -48,7 +37,7 @@ Future<void> onStart(ServiceInstance service) async {
   final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
       FlutterLocalNotificationsPlugin();
 
-  // bring to foreground
+  // bring to foreground`
   Timer.periodic(const Duration(seconds: 1), (timer) async {
     if (service is AndroidServiceInstance) {
       if (await service.isForegroundService()) {
@@ -62,10 +51,12 @@ Future<void> onStart(ServiceInstance service) async {
               'MY FOREGROUND SERVICE',
               icon: 'ic_bg_service_small',
               ongoing: true,
+              importance: Importance.max,
             ),
           ),
         );
       }
     }
+    appLog.log('BackGround Service is running');
   });
 }
