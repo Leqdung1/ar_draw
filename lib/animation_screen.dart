@@ -36,7 +36,7 @@ class _AnimationScreenState extends State<AnimationScreen>
     ).animate(animationController);
 
     animationHeart = Tween<double>(begin: 70.0, end: 180.0).animate(
-      CurvedAnimation(parent: animationController, curve: Curves.bounceOut),
+      CurvedAnimation(parent: animationController, curve: Curves.linear),
     );
   }
 
@@ -81,7 +81,6 @@ class _AnimationScreenState extends State<AnimationScreen>
                 animationController.forward();
               },
               child: Text('Press here'),
-              
             ),
           ],
         ),

@@ -23,7 +23,7 @@ void main() async {
   await RagnarokFlutter.initialize();
   await LocalNotification.init();
   await Firebase.initializeApp();
-  await initializeService();
+  await initializeService(); 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   AdsService.initialize(
     loadAds: () {
@@ -31,7 +31,7 @@ void main() async {
       RagnarokOpenAds.load();
       NativeAds.load();
     },
-  );
+  );  
   runApp(const MyApp());
 }
 

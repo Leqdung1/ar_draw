@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ragnarok_flutter/ads/ragnarok_banner_ads_object.dart';
 import 'package:test_ar/animation_screen.dart';
 import 'package:test_ar/camera.dart';
+import 'package:test_ar/device_id.dart';
 import 'package:test_ar/firebase_screen.dart';
 import 'package:test_ar/fourth_screen.dart';
 import 'package:test_ar/notifi_screen.dart';
@@ -96,6 +97,29 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             child: const Icon(
               Icons.animation,
+              color: Color.fromARGB(255, 74, 131, 81),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => AnimationScreen()),
+              );
+            },
+            child: const Icon(
+              Icons.image,
+              color: Color.fromARGB(255, 74, 131, 81),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              getDeviceId().then((value) {
+                print('deviceId: $value');
+              });
+            },
+            child: const Icon(
+              Icons.device_unknown,
               color: Color.fromARGB(255, 74, 131, 81),
             ),
           ),
