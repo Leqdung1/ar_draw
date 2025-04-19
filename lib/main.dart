@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:home_widget/home_widget.dart';
 import 'package:ragnarok_flutter/ads/ads_service.dart';
 import 'package:ragnarok_flutter/ads/ragnarok_inters_ads.dart';
 import 'package:ragnarok_flutter/ads/ragnarok_open_ads.dart';
@@ -23,7 +24,7 @@ void main() async {
   await RagnarokFlutter.initialize();
   await LocalNotification.init();
   await Firebase.initializeApp();
-  await initializeService(); 
+  await initializeService();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
   AdsService.initialize(
     loadAds: () {
@@ -31,7 +32,7 @@ void main() async {
       RagnarokOpenAds.load();
       NativeAds.load();
     },
-  );  
+  );
   runApp(const MyApp());
 }
 

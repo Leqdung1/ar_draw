@@ -5,6 +5,8 @@ import 'package:test_ar/camera.dart';
 import 'package:test_ar/device_id.dart';
 import 'package:test_ar/firebase_screen.dart';
 import 'package:test_ar/fourth_screen.dart';
+import 'package:test_ar/home_widget.dart';
+import 'package:test_ar/home_widget_counter.dart';
 import 'package:test_ar/notifi_screen.dart';
 import 'package:test_ar/noti_scheduling.dart';
 import 'package:test_ar/third_screen.dart';
@@ -119,7 +121,33 @@ class _HomeScreenState extends State<HomeScreen> {
               });
             },
             child: const Icon(
-              Icons.device_unknown,
+              Icons.person,
+              color: Color.fromARGB(255, 74, 131, 81),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => HomeWidgetScreen()),
+              );
+            },
+            child: const Icon(
+              Icons.mobile_screen_share_sharp,
+              color: Color.fromARGB(255, 74, 131, 81),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HomeWidgetCounter(title: 'Home'),
+                ),
+              );
+            },
+            child: const Icon(
+              Icons.mobile_friendly,
               color: Color.fromARGB(255, 74, 131, 81),
             ),
           ),

@@ -6,12 +6,15 @@ import io.flutter.embedding.engine.FlutterEngine
 import io.flutter.plugins.googlemobileads.GoogleMobileAdsPlugin
 
 class MainActivity : FlutterActivity(){
+//  private val eventChannel = "timeHandlerEvent"
+
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
         val smallNativeFactory = SmallNativeFactory(layoutInflater)
         GoogleMobileAdsPlugin.registerNativeAdFactory(flutterEngine,"smallNativeAd" ,smallNativeFactory)
         val largeNativeAdFactory = LargeNativeAdFactory(layoutInflater)
         GoogleMobileAdsPlugin.registerNativeAdFactory(flutterEngine, "largeNativeAd", largeNativeAdFactory)
+
     }
 
     override fun detachFromFlutterEngine() {
@@ -19,4 +22,11 @@ class MainActivity : FlutterActivity(){
         GoogleMobileAdsPlugin.unregisterNativeAdFactory(flutterEngine, "smallNativeAd")
         GoogleMobileAdsPlugin.unregisterNativeAdFactory(flutterEngine, "largeNativeAd")
     }
+
+//    object TimeHandler: EventChannel(binaryMessenger, eventChannel){
+//
+//    }
+
+
+
 }
