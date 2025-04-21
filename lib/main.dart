@@ -7,8 +7,8 @@ import 'package:ragnarok_flutter/ads/ragnarok_inters_ads.dart';
 import 'package:ragnarok_flutter/ads/ragnarok_open_ads.dart';
 import 'package:ragnarok_flutter/ragnarok_app/ragnarok_app.dart';
 import 'package:ragnarok_flutter/ragnarok_flutter.dart';
-import 'package:test_ar/background_service.dart';
-import 'package:test_ar/local_notification.dart';
+import 'package:test_ar/notifications/background_service.dart';
+import 'package:test_ar/notifications/local_notification.dart';
 import 'package:test_ar/native_ads.dart';
 import 'package:test_ar/router.dart';
 

@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:home_widget/home_widget.dart';
-import 'package:test_ar/dash_with_sign.dart';
+import 'package:test_ar/home_widget/dash_with_sign.dart';
 
 /// Callback invoked by HomeWidget Plugin when performing interactive actions
 /// The @pragma('vm:entry-point') Notification is required so that the Plugin can find it

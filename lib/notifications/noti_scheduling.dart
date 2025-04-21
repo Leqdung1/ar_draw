@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:test_ar/local_notification.dart';
+import 'package:test_ar/notifications/local_notification.dart';
 
 class TestNoti extends StatelessWidget {
   const TestNoti({super.key});

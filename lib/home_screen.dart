@@ -3,12 +3,13 @@ import 'package:ragnarok_flutter/ads/ragnarok_banner_ads_object.dart';
 import 'package:test_ar/animation_screen.dart';
 import 'package:test_ar/camera.dart';
 import 'package:test_ar/device_id.dart';
-import 'package:test_ar/firebase_screen.dart';
+import 'package:test_ar/event_channel/time.dart';
+import 'package:test_ar/notifications/firebase_screen.dart';
 import 'package:test_ar/fourth_screen.dart';
-import 'package:test_ar/home_widget.dart';
-import 'package:test_ar/home_widget_counter.dart';
-import 'package:test_ar/notifi_screen.dart';
-import 'package:test_ar/noti_scheduling.dart';
+import 'package:test_ar/home_widget/home_widget.dart';
+import 'package:test_ar/home_widget/home_widget_counter.dart';
+import 'package:test_ar/notifications/notifi_screen.dart';
+import 'package:test_ar/notifications/noti_scheduling.dart';
 import 'package:test_ar/third_screen.dart';
 
 Widget homeScreenBuilder(BuildContext context, [dynamic data]) {
@@ -148,6 +149,20 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             child: const Icon(
               Icons.mobile_friendly,
+              color: Color.fromARGB(255, 74, 131, 81),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => TimeScreen(title: 'Time'),
+                ),
+              );
+            },
+            child: const Icon(
+              Icons.access_time,
               color: Color.fromARGB(255, 74, 131, 81),
             ),
           ),

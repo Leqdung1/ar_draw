@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'package:test_ar/local_notification.dart';
+import 'package:test_ar/notifications/local_notification.dart';
 
 class NotifiScreen extends StatelessWidget {
   const NotifiScreen({super.key});
