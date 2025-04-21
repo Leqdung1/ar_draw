@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:home_widget/home_widget.dart';
 
 class TimeScreen extends StatefulWidget {
   const TimeScreen({super.key, required this.title});
@@ -11,11 +13,23 @@ class TimeScreen extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<TimeScreen> {
+  
   Stream<String> streamTimeFromNative() {
     const eventChannel = EventChannel('timeHandlerEvent');
     return eventChannel.receiveBroadcastStream().map(
-      (event) => event.toString(),
+      (event) => event.toString())..listen((event) {
+        homeWidgetTimer(event.toString());
+      },
     );
+  }
+
+  final String androidWidgetName = "com.example.test_ar.HomeWidget";
+  final String dataKey = "text_from_flutter_app";
+
+  void homeWidgetTimer(String data) {
+    HomeWidget.saveWidgetData(dataKey, data);
+
+    HomeWidget.updateWidget(androidName: 'HomeWidget');
   }
 
   @override

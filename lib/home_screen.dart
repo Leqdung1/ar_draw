@@ -126,18 +126,18 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Color.fromARGB(255, 74, 131, 81),
             ),
           ),
-          ElevatedButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => HomeWidgetScreen()),
-              );
-            },
-            child: const Icon(
-              Icons.mobile_screen_share_sharp,
-              color: Color.fromARGB(255, 74, 131, 81),
-            ),
-          ),
+          // ElevatedButton(
+          //   onPressed: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(builder: (context) => HomeWidgetScreen()),
+          //     );
+          //   },
+          //   child: const Icon(
+          //     Icons.mobile_screen_share_sharp,
+          //     color: Color.fromARGB(255, 74, 131, 81),
+          //   ),
+          // ),
           ElevatedButton(
             onPressed: () {
               Navigator.push(
