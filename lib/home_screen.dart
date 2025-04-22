@@ -3,7 +3,9 @@ import 'package:ragnarok_flutter/ads/ragnarok_banner_ads_object.dart';
 import 'package:test_ar/animation_screen.dart';
 import 'package:test_ar/camera.dart';
 import 'package:test_ar/device_id.dart';
+import 'package:test_ar/event_channel/battery.dart';
 import 'package:test_ar/event_channel/time.dart';
+import 'package:test_ar/isolate/photo_screen.dart';
 import 'package:test_ar/notifications/firebase_screen.dart';
 import 'package:test_ar/fourth_screen.dart';
 import 'package:test_ar/home_widget/home_widget.dart';
@@ -149,21 +151,45 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             child: const Icon(
               Icons.mobile_friendly,
-              color: Color.fromARGB(255, 74, 131, 81),
+              color: Color.fromARGB(255, 74, 67, 36),
+            ),
+          ),
+          // ElevatedButton(
+          //   onPressed: () {
+          //     Navigator.push(
+          //       context,
+          //       MaterialPageRoute(
+          //         builder: (context) => TimeScreen(title: 'Time'),
+          //       ),
+          //     );
+          //   },
+          //   child: const Icon(
+          //     Icons.access_time,
+          //     color: Color.fromARGB(255, 146, 96, 211),
+          //   ),
+          // ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => PhotoScreen()),
+              );
+            },
+            child: const Icon(
+              Icons.multiple_stop,
+              color: Color.fromARGB(255, 246, 80, 80),
             ),
           ),
           ElevatedButton(
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => TimeScreen(title: 'Time'),
-                ),
+                MaterialPageRoute(builder: (context) => Battery()),
               );
             },
             child: const Icon(
-              Icons.access_time,
-              color: Color.fromARGB(255, 74, 131, 81),
+              Icons.battery_charging_full,
+              color: Color.fromARGB(255, 69, 14, 220),
             ),
           ),
         ],
