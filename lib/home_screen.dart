@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ragnarok_flutter/ads/ragnarok_banner_ads_object.dart';
+import 'package:test_ar/3d/onboarding_screen.dart';
 import 'package:test_ar/animation_screen.dart';
 import 'package:test_ar/camera.dart';
 import 'package:test_ar/device_id.dart';
@@ -185,6 +186,18 @@ class _HomeScreenState extends State<HomeScreen> {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => Battery()),
+              );
+            },
+            child: const Icon(
+              Icons.battery_charging_full,
+              color: Color.fromARGB(255, 69, 14, 220),
+            ),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => OnboardingScreen()),
               );
             },
             child: const Icon(

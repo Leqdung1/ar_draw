@@ -36,7 +36,8 @@
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:label="test_ar">
+        android:label="test_ar"
+        android:usesCleartextTraffic="true">
         <receiver
             android:name=".HomeWidget"
             android:exported="false">
