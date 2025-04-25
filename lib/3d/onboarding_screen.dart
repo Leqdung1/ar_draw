@@ -24,15 +24,15 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
   ];
 
   List<String> get titles => [
-    'Increase Your Value',
-    'Best Digital Solution',
-    'Explore New Worlds',
+    'Feeling Overwhelmed?',
+    'Find Your Balance',
+    'Step Into Joy',
   ];
 
   List<String> get subTitles => [
-    "All tourist destinations are in your hands just click and find the convenience now in phone",
-    "from this second you will find an amazing and diverse journey through the grip and click",
-    "Explore different places in different countries and find many surprises always by your side",
+    "Life gets heavy sometimes — it's okay to not be okay. Let’s start small.",
+    "Take a moment to breathe, reflect, and reconnect with yourself.",
+    "You deserve happiness. Explore, feel, and thrive — one mood at a time.",
   ];
 
   List<Color> get bgColors => [
@@ -77,7 +77,10 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
                         SizedBox(height: 20),
                         Expanded(
                           flex: 4,
-                          child: Flutter3DViewer(src: images[index]),
+                          child: Flutter3DViewer(
+                            progressBarColor: Colors.transparent,
+                            src: images[index],
+                          ),
                         ),
                         Expanded(
                           flex: 3,
