@@ -15,6 +15,7 @@ class _AnimationScreenState extends State<AnimationScreen>
   late Animation<Offset> animation;
   late Animation<Offset> animationArrow;
   late Animation<double> animationHeart;
+  double _value = 0.5;
 
   @override
   void initState() {
@@ -74,6 +75,27 @@ class _AnimationScreenState extends State<AnimationScreen>
                 );
               },
             ),
+            Slider(
+              // ignore: deprecated_member_use
+              year2023: false,
+              value: _value,
+              onChanged: (value) {
+                setState(() {
+                  _value = value;
+                });
+              },
+            ),
+            const SizedBox(height: 20),
+            LinearProgressIndicator(year2023: false, value: 0.5),
+            const SizedBox(height: 20),
+            CircularProgressIndicator(year2023: false, value: 0.3),
+            Chip(
+              label: Text('Chip'),
+              onDeleted: () {
+                print('adasdsa');
+ 
+              },
+            ),
             const Spacer(),
             ElevatedButton(
               onPressed: () {
@@ -82,7 +104,6 @@ class _AnimationScreenState extends State<AnimationScreen>
               },
               child: Text('Press here'),
             ),
-            
           ],
         ),
       ),
